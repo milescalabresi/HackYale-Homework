@@ -1,0 +1,130 @@
+body {
+	margin: 0px;
+	padding: 0px;
+}
+
+html {
+	margin: 0px;
+	padding: 0px;
+}
+
+
+h1 {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.top-heading {
+	display: block;
+	position: relative;
+	background-color: black;
+	color: white;
+}
+
+.container {
+	position: relative;
+	width: 960px;
+	margin: 0 auto;
+}
+
+.links-box {
+	display: inline-block;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	height: 100%;
+	color: white;
+	font-size: 12pt;
+	text-decoration: none;
+	vertical-align: middle;
+	line-height: 79px;
+}
+
+.links-box > a {
+	text-decoration: none;
+	color: white;
+}
+
+
+.sub-heading {
+	display: block;
+	font-size: 48pt;
+	color: black;
+	font: Garamond;
+	text-align: center;
+	padding: 20px;
+}
+
+
+.main-body {
+	display: block;
+	position: relative;
+	background-color: lightgray;
+	color: black;
+
+}
+
+h2 {
+	font-size: 18pt;
+	color: magenta;
+	font-family: 'Raleway';
+}
+
+
+.column {
+	display: inline-block;
+	width: 296px;
+}
+
+.column > img {
+	max-width: 100%;
+	height: 220px;
+}
+
+.gutter{
+	display: inline-block;
+	width: 36px;
+}
+
+h3 {
+	font-size: 22pt;
+	color: darkgreen;
+}
+
+.row {
+	position: relative;
+	width: 296px;
+	border-color: black;
+	border-bottom-width: 2px;
+	margin: auto 0; /* See my comment below. This didn't work either. I tried to compensate by adding more text. */
+}
+
+.pic-col {
+	display: inline-block;
+	width: 80px;
+	/* I tried to add a margin: auto 0; here so that the little pix would float alongside text of any size, but it didn't work.
+	Not sure how to do that.... */
+}
+.pic-col > img {
+	width: 80px;
+	height: 80px;
+}
+
+.mini-gutter {
+	display: inline-block;
+	width: 10px;
+}
+
+.mini-col {
+	display: inline-block;
+	width: 200px;
+}
+
+h4 {
+	color: darkorange;
+	font-size: serif;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}

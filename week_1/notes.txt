@@ -1,0 +1,14 @@
+General notes:
+make markup in HTML semantic (style sheets should contain most of the markup)
+no scrolling on pages is better
+
+home page is ALWAYS "index.html"
+use lowercase for everything (tags, attributes, etc.) CONVENTION!
+
+use the folder hwX for assignment number X
+
+use one stylesheet for small sites
+
+Don't use <font>! That's what CSS is for!
+
+Use &lt, &gt to get the '<' '>' chars.

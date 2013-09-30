@@ -1,0 +1,46 @@
+CSS3! 9/24
+Style specifies how HTML elements look
+
+Every CSS rule (block of code) has two parts:
+	- a selector (indicates elements)
+	- a style
+
+
+Selectors:
+	- tag name (easy but rarely used; gives a feel to the whole site; overrides defaults and does global styles)
+		- hard to isolate elements
+	- class name (easy to select elements; each element can have multiple classes and vice-versa)
+		- prefixe class names with a period
+	- ID attribute (elements are supposed to be unique to IDs and vice-versa; not very reusable)
+		- prefix a pound sign
+
+
+Style (definition block):
+	<property: value;>
+
+	color, background-color
+		- take names (get creative), RGB, or hex values
+		- no "text-color"
+	text-decoration
+		- "none" or "underline"
+	width, height, font-size
+		- percentage or pixel value (not point!)
+	border
+		- size, style, and color (in that order)
+
+
+	In the box model, there is HxW containing the content, followed by padding, border, and margin.
+
+Properties:
+	display -- inline, block, none (how a style should appear on the page)
+	position -- how an element should position itself with respect to the browswer window, the parent element, or relative to sibling elements
+		- static (default) -- releative to its sibling
+		- fixed -- fixed position in browswer window regardless of where you scroll on the page
+		- absolute -- rendered at a specific location in the parent element (actually the first parent element whose position is not static); choose the edge that will require smaller distance
+		- relative --
+
+HW for next time:
+	1) finish command line tutorial
+	2) create a "hw1" git repository on GitHub
+	3) upload assignment there
+	4) on Lore, submit *just* the link to the repository

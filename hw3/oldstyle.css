@@ -1,0 +1,71 @@
+h1 {
+	color: blue;
+	background-color: purple;
+	font-style: italic;
+}
+
+body {
+	background-color: green;
+	font-size: 18pt;
+}
+
+/* We're in a comment now!*/
+.blue{
+	background-color: lightgreen;
+	color: blue;
+	border: 10pt solid navajowhite;
+}
+
+.red{ /* Class takes precedence over tags! */
+	color: red;
+	font-size: 100px;
+}
+
+h3{
+	position:absolute;
+	left:700px;
+	top:10px;
+}
+
+h4{
+	font-size: 100pt;
+	position:absolute;
+	left:700px;
+}
+
+h5{ /*This _cascades_, so it overwrites previous stuff (but only parallel previous stuff!). */
+	color: magenta;
+	background-color: #FFFF66;
+	font-size: 18pt;
+}
+
+.top-space{
+	margin-bottom: 10cm;	
+}
+
+img.overlay{
+	position: absolute;
+	left: 250px;
+	z-index: 2;
+	opacity: .8;
+}
+
+.bl{
+	background-color: darkblue;
+	color: white;
+}
+
+.home{
+	font-family: serif;
+	color: red;
+	background-color: white;
+	font-weight: bolder;
+}
+
+.big{
+	font-size: 48pt;
+}
+
+.normal{
+	font-size: 12pt;
+}

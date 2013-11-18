@@ -4,6 +4,8 @@ String.prototype.replaceAt = function(index, character) {
 
 var turn = 0;
 var gameover = false;
+var lastCellClicked = -1;
+var specturn = true;
 
 // set up blank board
 var board  = "";
@@ -42,19 +44,33 @@ function renderBoard() {
 // begin gameplay once the window loads
 $(function () {
     renderBoard();
+
     // update board when clicked
     $(".subcell").click(function(e) {
+        // find ID of subcell clicked
     	var c = e.target.id;
         var subcellClicked = c[c.length-1];
     	if (c[c.length-2] !== 'l')
     		subcellClicked = c[c.length-2] + subcellClicked;
-        board = board.replaceAt(Number(subcellClicked), players[turn%2]);
-        turn++;
+
+        // check that subcell was empty and replace
+        if (board[Number(subcellClicked)] === " " &&
+        (specturn || (9*(lastCellClicked%9) <= subcellClicked && subcellClicked < 9*((lastCellClicked%9)+1)))) {
+            console.log("turn "+turn+"; specturn: "+specturn);
+            board = board.replaceAt(Number(subcellClicked), players[turn%2]);
+            turn++;
+            lastCellClicked = subcellClicked;
+
+            // set special turn to be true for the special case when one sub-board is entirely full
+            //specturn = true;
+            for (var i = 9*(subcellClicked%9); i < 9*((subcellClicked%9)+1); i++) {
+                if (board[i] === " ")
+                    specturn = false;
+            }
+        }
+
         renderBoard();
-        //socket.emit('tictactoe', { board: board, cpu: opponent });
     });
-
-
 
 
 });

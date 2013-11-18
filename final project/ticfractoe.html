@@ -1,0 +1,143 @@
+<!-- Copied in part with permission from Alex Reinking -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tic-Tac-Toe</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://alexreinking.com/socket.io.js"></script>
+<script type="text/javascript" src="scripts/script.js"></script>
+
+<!-- STYLE -->
+<style type="text/css">
+.board {
+    width: 384px;
+    height: 384px;
+    border: 1px solid black;
+}
+
+.cell, .subcell {
+    display: block;
+    float: left;
+    width: 126px;
+    height: 126px;
+    border: 1px solid black;
+    line-height: 126px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #FFFFFF;
+}
+
+.subcell {
+	width: 40px;
+	height: 40px;
+    line-height: 40px;
+    font-family: serif;
+    font-size: 24px;
+    transition: all 0.2s ease-in-out;
+}
+
+.subcell:hover {
+    background-color: #CCCCCC;
+}
+</style>
+</head>
+
+
+<body>
+<h1>Tic-"Frac"-Toe</h1>
+<h2>Play against each other!</h2>
+<h2><span id="turn"></span></h2>
+<div class="board">
+    <span class="cell" id="cell0">
+		<span class="subcell" id="subcell0"></span>
+		<span class="subcell" id="subcell1"></span>
+		<span class="subcell" id="subcell2"></span>
+		<span class="subcell" id="subcell3"></span>
+		<span class="subcell" id="subcell4"></span>
+		<span class="subcell" id="subcell5"></span>
+		<span class="subcell" id="subcell6"></span>
+		<span class="subcell" id="subcell7"></span>
+		<span class="subcell" id="subcell8"></span></span>
+    <span class="cell" id="cell1">
+		<span class="subcell" id="subcell9"></span>
+		<span class="subcell" id="subcell10"></span>
+		<span class="subcell" id="subcell11"></span>
+		<span class="subcell" id="subcell12"></span>
+		<span class="subcell" id="subcell13"></span>
+		<span class="subcell" id="subcell14"></span>
+		<span class="subcell" id="subcell15"></span>
+		<span class="subcell" id="subcell16"></span>
+		<span class="subcell" id="subcell17"></span></span>
+    <span class="cell" id="cell2">
+		<span class="subcell" id="subcell18"></span>
+		<span class="subcell" id="subcell19"></span>
+		<span class="subcell" id="subcell20"></span>
+		<span class="subcell" id="subcell21"></span>
+		<span class="subcell" id="subcell22"></span>
+		<span class="subcell" id="subcell23"></span>
+		<span class="subcell" id="subcell24"></span>
+		<span class="subcell" id="subcell25"></span>
+		<span class="subcell" id="subcell26"></span></span>
+    <span class="cell" id="cell3">
+		<span class="subcell" id="subcell27"></span>
+		<span class="subcell" id="subcell28"></span>
+		<span class="subcell" id="subcell29"></span>
+		<span class="subcell" id="subcell30"></span>
+		<span class="subcell" id="subcell31"></span>
+		<span class="subcell" id="subcell32"></span>
+		<span class="subcell" id="subcell33"></span>
+		<span class="subcell" id="subcell34"></span>
+		<span class="subcell" id="subcell35"></span></span>
+    <span class="cell" id="cell4">
+		<span class="subcell" id="subcell36"></span>
+		<span class="subcell" id="subcell37"></span>
+		<span class="subcell" id="subcell38"></span>
+		<span class="subcell" id="subcell39"></span>
+		<span class="subcell" id="subcell40"></span>
+		<span class="subcell" id="subcell41"></span>
+		<span class="subcell" id="subcell42"></span>
+		<span class="subcell" id="subcell43"></span>
+		<span class="subcell" id="subcell44"></span></span>
+    <span class="cell" id="cell5">
+		<span class="subcell" id="subcell45"></span>
+		<span class="subcell" id="subcell46"></span>
+		<span class="subcell" id="subcell47"></span>
+		<span class="subcell" id="subcell48"></span>
+		<span class="subcell" id="subcell49"></span>
+		<span class="subcell" id="subcell50"></span>
+		<span class="subcell" id="subcell51"></span>
+		<span class="subcell" id="subcell52"></span>
+		<span class="subcell" id="subcell53"></span></span>
+    <span class="cell" id="cell6">
+		<span class="subcell" id="subcell54"></span>
+		<span class="subcell" id="subcell55"></span>
+		<span class="subcell" id="subcell56"></span>
+		<span class="subcell" id="subcell57"></span>
+		<span class="subcell" id="subcell58"></span>
+		<span class="subcell" id="subcell59"></span>
+		<span class="subcell" id="subcell60"></span>
+		<span class="subcell" id="subcell61"></span>
+		<span class="subcell" id="subcell62"></span></span>
+    <span class="cell" id="cell7">
+		<span class="subcell" id="subcell63"></span>
+		<span class="subcell" id="subcell64"></span>
+		<span class="subcell" id="subcell65"></span>
+		<span class="subcell" id="subcell66"></span>
+		<span class="subcell" id="subcell67"></span>
+		<span class="subcell" id="subcell68"></span>
+		<span class="subcell" id="subcell69"></span>
+		<span class="subcell" id="subcell70"></span>
+		<span class="subcell" id="subcell71"></span></span>
+    <span class="cell" id="cell8">
+		<span class="subcell" id="subcell72"></span>
+		<span class="subcell" id="subcell73"></span>
+		<span class="subcell" id="subcell74"></span>
+		<span class="subcell" id="subcell75"></span>
+		<span class="subcell" id="subcell76"></span>
+		<span class="subcell" id="subcell77"></span>
+		<span class="subcell" id="subcell78"></span>
+		<span class="subcell" id="subcell79"></span>
+		<span class="subcell" id="subcell80"></span></span>
+</div>
+</body>
+</html>

@@ -2,39 +2,39 @@
 String.prototype.replaceAt = function(index, character) {
     return this.substr(0, index) + character + this.substr(index+character.length);
 }
+var socket = io.connect('http://alexreinking.com:5349');
 
 var turn = 0;
 var lastCellClicked = -1;
 var specturn = true;
 var squareswon = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
+var onePlayer = false;
 
 // set up blank board
 var board  = "";
 for (var i = 0; i < 9; i++)
-	board += "         ";
+    board += "         ";
 
-
-// Set player symbols
-var players = ['X', 'O'];
-
-var sym = 'Y';
-while (sym !== 'X' && sym !== 'O') {
-	sym = prompt("Let's play! Player 1, X or O?")
-}
-
-if (sym === 'O')
-	players = ['O', 'X'];
+// // get move from AI
+// socket.on('move', function (data) {
+//     var x = data.spot;
+//     for (var i = x; i < x+9; i++)
+//         board.replaceAt(i, data.board[i-x]);
+//     renderBoard();
+// });
 
 
 // function to show the updated board on the HTML
 function renderBoard() {
     $("#turn").html("Player "+(1+turn%2)+"'s turn");
+    $("#moves").html("Move: " + turn);
     for(var i = 0; i < 81; i++) {
         $("#subcell"+i).html(board[i]);
     }
 }
 
-// functions to check if a square has been won ()
+
+// functions to check if a square has been won
 // start must be in column 1
 function rowWon(start, board) {
     return (board[start] !== " " && board[start] === board[start+1] && board[start] === board[start+2]);
@@ -64,17 +64,22 @@ function squareWon(start, board) {
 
 
 
+
 // begin gameplay once the window loads
 $(function () {
     renderBoard();
 
+    // Set player symbols
+    var players = ['X', 'O'];
+
+
     // update board when clicked
     $(".subcell").click(function(e) {
         // find ID of subcell clicked
-    	var c = e.target.id;
+        var c = e.target.id;
         var subcellClicked = c[c.length-1];
-    	if (c[c.length-2] !== 'l')
-    		subcellClicked = c[c.length-2] + subcellClicked;
+        if (c[c.length-2] !== 'l')
+            subcellClicked = c[c.length-2] + subcellClicked;
         subcellClicked = Number(subcellClicked);
 
         // check that subcell was empty and replace
@@ -87,22 +92,6 @@ $(function () {
             if (squareswon[Math.floor(subcellClicked/9)] === " " && squareWon(subcellClicked-(subcellClicked%9), board))
                 squareswon[Math.floor(subcellClicked/9)] = players[turn%2];
 
-            // see if the game has been won and reset/exit
-            if (squareWon(0, squareswon)) {
-                alert("Game over! Player "+(1+(turn%2))+" has won.");
-                if(confirm("Play again? 'OK' for yes, 'Cancel' for no")) {
-                    board = "";
-                    for (var i = 0; i < 9; i ++)
-                        board += "         ";
-                    turn = 0;
-                    lastCellClicked = -1;
-                    specturn = true;
-                    squareswon = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
-                }
-                else
-                    close();
-            }
-
 
             // set special turn to be true only for the special case when one sub-board is entirely full
             specturn = true;
@@ -110,17 +99,70 @@ $(function () {
                 if (board[i] === " ")
                     specturn = false;
             }
+            if (specturn) {
+                alert("Since the board you're supposed to play in is full, you may play in any square you like!");
+            }
+
+
+            // see if the game has been won and reset/exit
+            if (squareWon(0, squareswon)) {
+                alert("Game over! Player "+(1+(turn%2))+" won after " + turn+1 + " moves.");
+                if(confirm("Play again? 'OK' for yes, 'Cancel' for no")) {
+                    board = "";
+                    for (var i = 0; i < 9; i ++)
+                        board += "         ";
+                    turn = -1;  // to compensate for update below
+                    specturn = true;
+                    squareswon = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
+                }
+                else
+                    close();
+            }
 
             // update variables to reflect this turn
             turn++;
             lastCellClicked = subcellClicked;
-            console.log("this turn: "+squareWon(subcellClicked-(subcellClicked%9), board));
-            console.log("squares claimed: ");
-            console.log(squareswon);
         }
 
         renderBoard();
+        /*socket.emit('tictactoe', { board: board.slice(9*(lastCellClicked%9), 9*(1+(lastCellClicked%9))),
+            cpu: players[1], spot: 9*(lastCellClicked%9) });*/
     });
 
+    // change the background color depending on whose turn it is
+    for (var i = 0; i < 81; i++) {
+        (function (_i) {
+            $("#subcell"+_i).mouseover(function(e) {
+                if(turn%2 === 0) {
+                    $(e.target).removeClass('subcell-green');
+                    $(e.target).addClass('subcell-red');
+                }
+                else {
+                    $(e.target).removeClass('subcell-red');
+                    $(e.target).addClass('subcell-green');
+                }
+            });
+        })(i);
+    }
 
+    // choose symbols to play with
+    $("#button").click(function() {
+        if (turn === 0) {
+            var sym = 'Y';
+            while (sym !== 'X' && sym !== 'O')
+                sym = prompt("Let's play! Player 1, X or O?")
+            if (sym === 'O')
+                players = ['O', 'X'];
+        }
+        else
+            alert("Can't change symbols in the middle of a game!");
+    });
+
+    // let CPU make move
+    var b = move(board.slice(9*(lastCellClicked%9), 9*(1+(lastCellClicked%9))), players[1]);
+    var x = 9*(lastCellClicked%9);
+    console.log("Here!");
+    for (var i = x; i < x+9; i++)
+         board.replaceAt(b[i-x], i);
+    renderBoard();
 });

@@ -81,9 +81,13 @@ h2 {
 	height: 220px;
 }
 
-.gutter{
+.gutter {
 	display: inline-block;
 	width: 36px;
+}
+
+#subheadimg {
+	vertical-align: top;
 }
 
 h3 {
@@ -102,8 +106,7 @@ h3 {
 .pic-col {
 	display: inline-block;
 	width: 80px;
-	/* I tried to add a margin: auto 0; here so that the little pix would float alongside text of any size, but it didn't work.
-	Not sure how to do that.... */
+	vertical-align: center;
 }
 .pic-col > img {
 	width: 80px;

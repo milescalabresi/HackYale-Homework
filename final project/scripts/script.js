@@ -99,14 +99,17 @@ $(function () {
                 if (board[i] === " ")
                     specturn = false;
             }
+
+
+            $("#anywhere").slideUp();
             if (specturn) {
-                alert("Since the board you're supposed to play in is full, you may play in any square you like!");
+                $("#anywhere").show("slide", { direction: "left" }, 1000);
             }
 
 
             // see if the game has been won and reset/exit
             if (squareWon(0, squareswon)) {
-                alert("Game over! Player "+(1+(turn%2))+" won after " + turn+1 + " moves.");
+                alert("Game over! Player "+(1+(turn%2))+" won after " + turn + " moves.");
                 if(confirm("Play again? 'OK' for yes, 'Cancel' for no")) {
                     board = "";
                     for (var i = 0; i < 9; i ++)

@@ -37,7 +37,7 @@ Properties:
 		- static (default) -- releative to its sibling
 		- fixed -- fixed position in browswer window regardless of where you scroll on the page
 		- absolute -- rendered at a specific location in the parent element (actually the first parent element whose position is not static); choose the edge that will require smaller distance
-		- relative --
+		- relative -- relative to where it *would* be if you didn't specify
 
 HW for next time:
 	1) finish command line tutorial

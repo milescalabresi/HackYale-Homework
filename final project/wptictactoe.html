@@ -52,6 +52,23 @@
 .subcell-green:hover {
     background-color: #CCFF99;
 }
+
+#turn {
+    background-color: #2EE;
+    padding: 7px;
+    border-radius: 5px;
+}
+
+#moves {
+    background-color: #FF8455;
+    padding: 7px;
+    border-radius: 5px;
+}
+
+#anywhere {
+    /*display: none;*/
+    font-family: "Zapf-Chancery";
+}
 </style>
 </head>
 
@@ -59,7 +76,8 @@
 <body>
 <h1>Wreath Product Tic-Tac-Toe</h1>
 <h2>Play against each other!</h2>
-<h2><span id="turn"></span><br>
+<h2><span id="turn"></span>
+<span id="anywhere">Since the board you're supposed to play in is full, you may play in any square you like!</span><br><br>
 <span id="moves"></span></h2>
 <button id="button">Choose symbol</button>
 <div class="board">

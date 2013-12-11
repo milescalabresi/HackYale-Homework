@@ -14,13 +14,22 @@ today = dd + " " + monthInWords[mm] + " " + yyyy;
 
 
 // Using window.onload as given
-window.onload = function() {
+$(document).ready(function() {
    /* Assignment: add inputs and a button to the 'blog' section of your wireframe
    so that when you type stuff into the inputs and press that button, a new blog post appears on the page */
    $("#submit_post").click(function() {
       var post = $("#post_input").val();
-      $("#post_input").val("");
-      $("#blog").append("<p>Posted on: " + today + "&emsp; Posted by: Anonymous</p>");
-      $("#blog").append("<p>"+post+"</p>");
+      var author = $("#post_author").val();
+      var title = $("#post_title").val();
+      console.log("'", post, "'");
+      if (post === "" || author === "" || title === "") {
+      	alert("You need a title, author, and content!");
+      }
+      else {
+	      $(".input").val("");
+	      $("#blog").append("<p font-size='18px'><h2>" + title + "</h2></p>");
+	      $("#blog").append("<p>Posted on: " + today + "&emsp; Posted by: " + author + "</p>");
+	      $("#blog").append("<p>"+post+"</p><hr>");
+	  }
    });
-};
+});
